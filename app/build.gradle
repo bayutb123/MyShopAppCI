@@ -1,0 +1,57 @@
+plugins {
+    // MAIN
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'com.google.devtools.ksp'
+}
+
+apply from: '../shared_dependencies.gradle'
+
+android {
+    namespace 'com.bayutb.myshopapp'
+    dynamicFeatures = [':favourite']
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.bayutb.myshopapp"
+        minSdk 24
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    viewBinding {
+        enabled = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+    dynamicFeatures = [':favourite']
+}
+
+dependencies {
+    implementation project(":core")
+
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+
+    ksp 'com.github.bumptech.glide:ksp:4.14.2'
+
+}
+

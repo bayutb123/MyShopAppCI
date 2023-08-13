@@ -3,30 +3,11 @@
 # For a detailed guide to building and testing on Android, read the docs:
 # https://circleci.com/docs/language-android/ for more details.
 version: 2.1
-executors:
-  default:
-    docker:
-      - image: circleci/android:api-31
-        environment:
-          JVM_VERSION: "11"
-
 jobs:
   build:
-    executor: default
-      # Add other build steps here
-
-    # Add steps to the job
-    # See: https://circleci.com/docs/configuration-reference/#steps
+    docker:
+      - image: cimg/android:2023.08
     steps:
-      # Checkout the code as the first step.
       - checkout
-      
-
-
-# Invoke jobs via workflows
-# See: https://circleci.com/docs/configuration-reference/#workflows
-workflows:
-  version: 2
-  build_and_test:
-    jobs:
-      - build
+      - run: ./gradlew androidDependencies
+      - run: ./gradlew lint test
